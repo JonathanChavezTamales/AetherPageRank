@@ -48,15 +48,15 @@ app.get('/results', (req, res) => {
       const server = net.createServer(c => {
         c.on('data', data => {
           stream = data.toString('utf-8');
-
+          console.log(stream);
           results = [];
           stream = stream.split('-#-#');
-          console.log(stream);
           for (i in stream) {
-            console.log(i);
             if (stream[i] != '') {
               brokenStream = stream[i].split('\n');
-              console.log(brokenStream);
+              brokenStream = brokenStream.filter(function(item) {
+                return item !== '';
+              });
               result = {
                 title: brokenStream[0],
                 href: brokenStream[1],
